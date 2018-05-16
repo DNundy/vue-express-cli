@@ -1,15 +1,14 @@
 {
-  "name": "vue-express",
+  "name": "vue-express-cli",
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run dev",
     "dev": "nodemon index.js",
-    "build": "node build/build.js"
+    "prod": "nodemon index.js",
+    "fe-build": "node build/build.js"
   },
-  "author": "",
-  "license": "MIT",
+  "author": "Nundy",
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "compression-webpack-plugin": "^1.1.11",
