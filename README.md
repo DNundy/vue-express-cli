@@ -1,25 +1,21 @@
-## 关键词
-
-- Vue
-- Express
-- Nodemon
-- Webpack
-- Npm
-
-## 
-
-## 文件目录
-
 ## 运行方式
 
-1. 安装依赖包
+1. 安装开发依赖包
 
-   `npm install`
+    `npm install` || `npm i`
 
 2. 运行开发环境
 
-   `npm run dev 或者 npm start` 
+    `npm run dev` || `npm start`
 
-3. build前端代码
+3. 运行开发环境
+
+    `npm run prod`
+
+4. 只运行服务器
+
+    `npm run server`
+
+5. 只打包前端前端代码
 
     `npm run build`

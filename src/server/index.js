@@ -1,60 +1,69 @@
-/* 引入中间件 */
-
 // 引入express框架
-let express = require('express');
+const express = require('express');
 // 引入express路由
-let router = express.Router();
-// 引入内置的path模块
-let path = require('path');
+const router = express.Router();
+// 引入node内置path模块
+const path = require('path');
 // 管理cookie(设置、获取、删除),express-session依赖于它
-let cookieParser = require('cookie-parser');
-// 创建http错误信息
-let createError = require('http-errors');
+const cookieParser = require('cookie-parser');
+// 用于创建http错误信息
+const createError = require('http-errors');
 // 记录服务日志
-let logger = require('morgan');
+const logger = require('morgan');
 // 借用ejs来设置html为模板引擎
-let ejs = require('ejs');
+const ejs = require('ejs');
 // 设置网站logo
-let favicon = require('serve-favicon');
+const favicon = require('serve-favicon');
 // HTTP请求体解析
-let bodyParser = require ('body-parser');
+const bodyParser = require ('body-parser');
 // 引入history模块,协助vue路由
-let history =require ('connect-history-api-fallback');
-// webpack
-let webpack = require('webpack');
+const history =require ('connect-history-api-fallback');
+
+
+// 环境变量
+const ENV_STATUS = process.env.ENV_STATUS || 'dev';
+const ENV_PORT = process.env.ENV_PORT || '4000';
+
 
 // webpack相关
-// import webpackDevMiddleware from 'webpack-dev-middleware'
-// import webpackHotMiddleware from 'webpack-hot-middleware'
-// import config from '../../build/webpack.dev.conf'
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const config = require('../../build/webpack.dev.conf');
+const compiler = webpack(config);
 
-const app = express()
+// 实例化应用
+const app = express();
 
-app.use(history())
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
-app.use(logger('dev'))
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.static(path.join(__dirname, 'public')))
+if ( ENV_STATUS == 'dev' ){
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+    stats: { colors: true }
+  }));
+  app.use(webpackHotMiddleware(compiler));
+}
 
-// webpack
-// const compiler = webpack(config)
-// app.use(webpackDevMiddleware(compiler, {
-//   publicPath: config.output.publicPath,
-//   stats: { colors: true }
-// }))
-// app.use(webpackHotMiddleware(compiler))
+app.use(history());
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use(express.static(path.join(__dirname, 'views')))
+app.use(express.static(path.join(__dirname, 'views')));
 app.get('/', function (req, res) {
-  res.sendFile('./views/index.html')
-})
+  if (ENV_STATUS == 'dev' ){
+    res.sendFile('./views/index-tpl.html');
+  }else{
+    res.sendFile('./views/index.html');
+  }
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
-})
+});
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -64,12 +73,11 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-})
+});
 
-// 设置监听端口
-const SERVER_PORT = 4000
-app.listen(SERVER_PORT, () => {
-  console.info(`服务已经启动，监听端口${SERVER_PORT}`)
-})
+// 启动服务器
+app.listen(ENV_PORT, () => {
+  console.info(`服务已经启动，监听端口${ENV_PORT}`);
+});
 
-module.exports = app
+module.exports = app;
