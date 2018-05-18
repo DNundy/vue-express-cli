@@ -4,11 +4,11 @@
   "description": "A whole vue-express-cli",
   "main": "app.js",
   "scripts": {
-    "start"   : "npm run dev",
-    "dev"     : "set ENV_STATUS=dev&&set ENV_PORT=4000&&nodemon app.js",
-    "prod"    : "set ENV_STATUS=prod&&set ENV_PORT=4000&&node build/build.js&&nodemon app.js",
-    "server"  : "set ENV_STATUS=prod&&set ENV_PORT=4000&&nodemon app.js",
-    "build"   : "node build/build.js"
+    "start": "npm run dev",
+    "dev": "set ENV_STATUS=dev&&set ENV_PORT=4000&&nodemon app.js",
+    "prod": "set ENV_STATUS=prod&&set ENV_PORT=4000&&node build/build.js&&nodemon app.js",
+    "server": "set ENV_STATUS=prod&&set ENV_PORT=4000&&nodemon app.js",
+    "build": "node build/build.js"
   },
   "author": "Nundy",
   "dependencies": {
