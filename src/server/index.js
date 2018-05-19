@@ -1,8 +1,8 @@
 /*
- * @Author: Nundyaa 
- * @Date: 2018-05-18 17:02:50 
+ * @Author: Nundy 
+ * @Date: 2018-05-19 08:26:53 
  * @Last Modified by: 我不是，我没有，别瞎说~ 这个Bug不是我写的
- * @Last Modified time: 2018-05-18 22:15:52
+ * @Last Modified time: 2018-05-19 10:03:04
  */
 
  /****************************************/
@@ -10,20 +10,24 @@
 const express = require('express');
 // 引入node内置path模块
 const path = require('path');
-// 管理cookie(设置、获取、删除),express-session依赖于它
-const cookieParser = require('cookie-parser');
+
 // 用于创建http错误信息
 const createError = require('http-errors');
 // 记录服务日志
 const logger = require('morgan');
-// 借用ejs来设置html为模板引擎
-const ejs = require('ejs');
 // 设置网站logo
 const favicon = require('serve-favicon');
+
 // HTTP请求体解析
 const bodyParser = require ('body-parser');
+// 管理cookie(设置、获取、删除),express-session依赖于它
+const cookieParser = require('cookie-parser');
+// 处理 enctype = "multipart/form-data" 表单数据
+const multer = require('multer');
+
+
 // 引入history模块,协助vue路由
-// const history =require ('connect-history-api-fallback');
+const history =require ('connect-history-api-fallback');
 
 // 环境变量
 const ENV_STATUS = process.env.ENV_STATUS || 'dev';
@@ -43,18 +47,26 @@ const router = require('./router/router');
 const app = express();
 
 /****************************************/
-// 常规中间件
-// app.use(history());
+// 日志记录
 app.use(logger('dev'));
+
+// 解析 POST/PUT/PATCH 中的请求体
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'views')));
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 // API 路由设置
 app.use('/api', router);
 
-// webpackDevMiddleware
+// history模块,协助vue路由
+app.use(history());
+// 设置静态文件路径,prod模式
+app.use(express.static(path.join(__dirname, 'views')));
+// 设置网站logo
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+
+
+// webpackDevMiddleware && webpackHotMiddleware
 if ( ENV_STATUS == 'dev' ){
   app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,

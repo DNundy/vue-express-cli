@@ -1,13 +1,16 @@
-var path = require('path')
-var utils = require('./utils')
-var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
+const path = require('path')
+const utils = require('./utils')
+const config = require('../config')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
 module.exports = {
+  mode: process.env.NODE_ENV === 'production'
+    ? 'production'
+    : 'development',
   entry: {
     app: './src/client/index.js'
   },
@@ -19,7 +22,9 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
+    // 自动解析扩展
     extensions: ['.js', '.vue', '.json'],
+    // 解析别名
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src')
@@ -29,15 +34,13 @@ module.exports = {
     rules: [
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: vueLoaderConfig
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        // query: { presets: ['es2015'] }
-        include: [resolve('src'), resolve('test')]
+        include: resolve('src')
       }, {
         test: /\.scss$/,
         loaders: ["style", "css", "sass"]
@@ -59,4 +62,8 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new VueLoaderPlugin()
+  ]
+}
