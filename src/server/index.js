@@ -2,7 +2,7 @@
  * @Author: Nundy 
  * @Date: 2018-05-19 08:26:53 
  * @Last Modified by: 我不是，我没有，别瞎说~ 这个Bug不是我写的
- * @Last Modified time: 2018-05-19 14:30:22
+ * @Last Modified time: 2018-05-19 14:34:25
  */
 
  /****************************************/
@@ -33,11 +33,11 @@ const ENV_PORT    = require('./config/basic').server_port;
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const webpack_config = require('../../build/webpack.dev.conf');
-const compiler = webpack(webpack_config);
+const webpack_cfg = require('../../build/webpack.dev.conf');
+const compiler = webpack(webpack_cfg);
 
 // 引入系统路由文件
-const router = require('./router/router');
+const router_cfg = require('./router/router');
 
 // 实例应用
 const app = express();
@@ -51,7 +51,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // API 路由设置
-app.use('/api', router);
+app.use('/api', router_cfg);
 
 // history模块,协助vue路由
 app.use(history());
@@ -61,7 +61,7 @@ app.use(favicon(path.join(__dirname,'favicon.ico')));
 // webpackDevMiddleware && webpackHotMiddleware
 if (ENV_STATUS == 'development' ){
   app.use(webpackDevMiddleware(compiler, {
-    publicPath: webpack_config.output.publicPath,
+    publicPath: webpack_cfg.output.publicPath,
     stats: { colors: true }
   }));
   app.use(webpackHotMiddleware(compiler));
