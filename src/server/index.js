@@ -2,7 +2,7 @@
  * @Author: Nundy 
  * @Date: 2018-05-19 08:26:53 
  * @Last Modified by: 我不是，我没有，别瞎说~ 这个Bug不是我写的
- * @Last Modified time: 2018-05-19 14:12:47
+ * @Last Modified time: 2018-05-19 14:30:22
  */
 
  /****************************************/
@@ -11,8 +11,6 @@ const express = require('express');
 // 引入node内置path模块
 const path = require('path');
 
-// 用于创建http错误信息
-const createError = require('http-errors');
 // 记录服务日志
 const logger = require('morgan');
 // 设置网站logo
@@ -63,7 +61,7 @@ app.use(favicon(path.join(__dirname,'favicon.ico')));
 // webpackDevMiddleware && webpackHotMiddleware
 if (ENV_STATUS == 'development' ){
   app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
+    publicPath: webpack_config.output.publicPath,
     stats: { colors: true }
   }));
   app.use(webpackHotMiddleware(compiler));
@@ -71,21 +69,6 @@ if (ENV_STATUS == 'development' ){
 
 // 设置静态文件路径,prod模式
 app.use(express.static(path.join(__dirname, 'views')));
-
-// 捕捉404并next错误回调
-app.use(function (req, res, next) {
-  next(createError(404));
-});
-
-// 错误回调
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-});
 
 // 启动服务
 app.listen(ENV_PORT, () => {
