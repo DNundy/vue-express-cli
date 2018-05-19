@@ -23,7 +23,7 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/server/views/index_tpl.html',
+      template: 'src/server/views/template.html',
       inject: true
     }),
     new FriendlyErrorsPlugin()

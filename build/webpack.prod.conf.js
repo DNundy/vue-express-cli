@@ -40,7 +40,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     }),
     new HtmlWebpackPlugin({
       filename: config.build.index,
-      template: 'src/server/views/index_tpl.html',
+      template: 'src/server/views/template.html',
       inject: true,
       minify: {
         removeComments: true,

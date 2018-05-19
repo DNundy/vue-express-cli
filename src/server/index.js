@@ -2,7 +2,7 @@
  * @Author: Nundy 
  * @Date: 2018-05-19 08:26:53 
  * @Last Modified by: 我不是，我没有，别瞎说~ 这个Bug不是我写的
- * @Last Modified time: 2018-05-19 14:01:52
+ * @Last Modified time: 2018-05-19 14:12:47
  */
 
  /****************************************/
@@ -24,22 +24,19 @@ const bodyParser = require ('body-parser');
 const cookieParser = require('cookie-parser');
 // 处理 enctype = "multipart/form-data" 表单数据
 const multer = require('multer');
-
-
 // 引入history模块,协助vue路由
-const history =require ('connect-history-api-fallback');
+const history = require('connect-history-api-fallback');
 
 // 环境变量
-const ENV_STATUS = process.env.NODE_ENV;
-const ENV_PORT = '4000';
-
+const ENV_STATUS  = process.env.NODE_ENV;
+const ENV_PORT    = require('./config/basic').server_port;
 
 // webpack相关
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('../../build/webpack.dev.conf');
-const compiler = webpack(config);
+const webpack_config = require('../../build/webpack.dev.conf');
+const compiler = webpack(webpack_config);
 
 // 引入系统路由文件
 const router = require('./router/router');
@@ -61,7 +58,7 @@ app.use('/api', router);
 // history模块,协助vue路由
 app.use(history());
 // 设置网站logo
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname,'favicon.ico')));
 
 // webpackDevMiddleware && webpackHotMiddleware
 if (ENV_STATUS == 'development' ){
