@@ -2,7 +2,7 @@
  * @Author: Nundy 
  * @Date: 2018-05-19 08:26:53 
  * @Last Modified by: 我不是，我没有，别瞎说~ 这个Bug不是我写的
- * @Last Modified time: 2018-05-19 10:03:04
+ * @Last Modified time: 2018-05-19 14:01:52
  */
 
  /****************************************/
@@ -30,8 +30,9 @@ const multer = require('multer');
 const history =require ('connect-history-api-fallback');
 
 // 环境变量
-const ENV_STATUS = process.env.ENV_STATUS || 'dev';
-const ENV_PORT = process.env.ENV_PORT || '4000';
+const ENV_STATUS = process.env.NODE_ENV;
+const ENV_PORT = '4000';
+
 
 // webpack相关
 const webpack = require('webpack');
@@ -59,21 +60,20 @@ app.use('/api', router);
 
 // history模块,协助vue路由
 app.use(history());
-// 设置静态文件路径,prod模式
-app.use(express.static(path.join(__dirname, 'views')));
 // 设置网站logo
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-
-
 // webpackDevMiddleware && webpackHotMiddleware
-if ( ENV_STATUS == 'dev' ){
+if (ENV_STATUS == 'development' ){
   app.use(webpackDevMiddleware(compiler, {
     publicPath: config.output.publicPath,
     stats: { colors: true }
   }));
   app.use(webpackHotMiddleware(compiler));
 }
+
+// 设置静态文件路径,prod模式
+app.use(express.static(path.join(__dirname, 'views')));
 
 // 捕捉404并next错误回调
 app.use(function (req, res, next) {

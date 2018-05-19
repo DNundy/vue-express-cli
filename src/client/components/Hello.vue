@@ -8,8 +8,14 @@
 export default {
   data () {
     return {
-      msg: 'Hello World!'
+      msg: 'Hellos World!'
     }
   }
 }
 </script>
+<style lang="less">
+*{
+  color: red;
+}
+</style>
+

@@ -1,25 +1,19 @@
 const path = require('path')
-const utils = require('./utils')
-const config = require('../config')
+const config = require('./config')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-function resolve(dir) {
-  return path.join(__dirname, '..', dir)
+const utils = {
+  resolve: (dir)=>{
+    return path.join(__dirname, '..', dir)
+  },
+  assetsPath: (_path) => {
+    return path.posix.join(config.dev.assetsSubDirectory, _path)
+  }
 }
 
 module.exports = {
-  mode: process.env.NODE_ENV === 'production'
-    ? 'production'
-    : 'development',
   entry: {
     app: './src/client/index.js'
-  },
-  output: {
-    path: config.build.assetsRoot,
-    filename: '[name].js',
-    publicPath: process.env.NODE_ENV === 'production'
-      ? config.build.assetsPublicPath
-      : config.dev.assetsPublicPath
   },
   resolve: {
     // 自动解析扩展
@@ -27,7 +21,7 @@ module.exports = {
     // 解析别名
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src')
+      '@': utils.resolve('src')
     }
   },
   module: {
@@ -40,10 +34,31 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/,
-        include: resolve('src')
-      }, {
+        include: utils.resolve('src')
+      }, 
+      {
+        test: /\.css$/,
+        use: [
+            'MiniCssExtractPlugin.loader',
+            'style-loader',
+            'css-loader',
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'less-loader'
+        ]
+      },
+      {
         test: /\.scss$/,
-        loaders: ["style", "css", "sass"]
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'sass-loader'
+        ]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

@@ -5,9 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "set ENV_STATUS=dev&&set ENV_PORT=4000&&nodemon app.js",
-    "prod": "set ENV_STATUS=prod&&set ENV_PORT=4000&&node build/build.js&&nodemon app.js",
-    "server": "set ENV_STATUS=prod&&set ENV_PORT=4000&&nodemon app.js",
+    "dev": "nodemon app.js",
+    "prod": "set NODE_ENV=production&&node build/build.js&&node app.js",
+    "server": "set NODE_ENV=production&&node app.js",
     "build": "node build/build.js"
   },
   "author": "Nundy",
@@ -54,6 +54,8 @@
     "friendly-errors-webpack-plugin": "^1.1.3",
     "html-webpack-plugin": "^3.2.0",
     "http-proxy-middleware": "^0.18.0",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "morgan": "^1.8.2",
     "node-sass": "^4.0.0",

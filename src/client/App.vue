@@ -16,16 +16,15 @@ export default {
   }
 }
 </script>
-
-<style>
-html {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+<style lang="less">
+html{
   height: 100%;
 }
 </style>
+<style lang="scss">
+html{
+  height: 100%;
+}
+</style>
+
+
