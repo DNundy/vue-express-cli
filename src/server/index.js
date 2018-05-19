@@ -2,7 +2,7 @@
  * @Author: Nundyaa 
  * @Date: 2018-05-18 17:02:50 
  * @Last Modified by: 我不是，我没有，别瞎说~ 这个Bug不是我写的
- * @Last Modified time: 2018-05-18 17:53:37
+ * @Last Modified time: 2018-05-18 22:15:52
  */
 
  /****************************************/
@@ -37,7 +37,7 @@ const config = require('../../build/webpack.dev.conf');
 const compiler = webpack(config);
 
 // 引入系统路由文件
-const router = require('./router');
+const router = require('./router/router');
 
 // 实例应用
 const app = express();
