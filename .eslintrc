@@ -11,6 +11,7 @@
       "modules": true
     }
   },
+  "root": true,
   "extends": "standard",
   "plugins": [
     "html"
@@ -18,6 +19,9 @@
   "rules": {
     "arrow-parens": 0,
     "space-before-function-paren": 0,
-    "no-new": 0
+    "no-new": 0,
+    "generator-star-spacing": 0,
+    "no-mixed-spaces-and-tabs": [0],
+    "indent": [2,4]
   }
 }
