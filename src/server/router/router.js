@@ -1,14 +1,10 @@
-const express = require('express')
 const router = require('express').Router()
+const UserRouter = require('./UserRouter')
 
-const User = require('./user');
+router.use('/user', UserRouter)
 
-router.use('/user',User);
+router.use('/*', (req, res) => {
+    res.status(404).json('【SERVER ERROR】Interface Not Found !')
+})
 
-router.use('/*',(req,res) => {
-    console.error('【ERROR】Interface Not Found !');
-    res.status(404).json('Interface Not Found !');
-});
-
-
-module.exports = router;
+module.exports = router

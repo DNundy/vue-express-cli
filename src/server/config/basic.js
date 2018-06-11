@@ -1,4 +1,4 @@
-const basic_config = {
+const basicConfig = {
     server_port: '4000'
-};
-module.exports = basic_config;
+}
+module.exports = basicConfig
