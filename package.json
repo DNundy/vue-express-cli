@@ -1,17 +1,19 @@
 {
-  "name": "vue-express-cli",
+  "name": "fen",
   "version": "1.1.0",
-  "description": "A whole vue-express-cli",
-  "main": "app.js",
+  "description": "fen",
+  "main": "./src/server/index.js",
   "scripts": {
-    "start": "npm run dev",
-    "dev": "nodemon app.js",
-    "prod": "set NODE_ENV=production&&node build/build.js&&node app.js",
-    "server": "set NODE_ENV=production&&node app.js",
-    "build": "node build/build.js"
+    "start": "npm run dev_all",
+    "dev_fe": "set NODE_ENV=development&&node ./src/server/index.js",
+    "dev_server": "set NODE_ENV=production&&nodemon ./src/server/index.js",
+    "dev_all": "set NODE_ENV=development&&nodemon ./src/server/index.js",
+    "prod_fe": "node build/build.js",
+    "prod_server": "set NODE_ENV=production&&node ./src/server/index.js",
+    "prod_all": "set NODE_ENV=production&&node build/build.js&&node ./src/server/index.js"
   },
   "author": "Nundy",
-  "repository": "https://github.com/UniqueSirius/vue-express-cli.git",
+  "repository": "git@github.com:UniqueSirius/fen.git",
   "license": "MIT",
   "dependencies": {
     "babel-runtime": "^6.26.0",

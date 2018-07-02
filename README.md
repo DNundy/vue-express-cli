@@ -8,14 +8,14 @@
 
     `npm run dev` || `npm start`
 
-3. 运行开发环境
+3. 运行生产环境
 
     `npm run prod`
 
-4. 只运行服务器
+4. 只运行线上服务器
 
     `npm run server`
 
-5. 只打包前端前端代码
+5. 只打包前端代码
 
     `npm run build`

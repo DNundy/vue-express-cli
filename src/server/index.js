@@ -2,10 +2,11 @@
  * @Author: Nundy
  * @Date: 2018-05-19 08:26:53
  * @Last Modified by: 我不是，我没有，别瞎说~ 这个Bug不是我写的
- * @Last Modified time: 2018-06-11 08:50:22
+ * @Last Modified time: 2018-06-12 16:41:49
  */
 
 /****************************************/
+require('babel-register')
 // 引入express框架
 const express = require('express')
 // 引入node内置path模块
@@ -19,15 +20,14 @@ const favicon = require('serve-favicon')
 // HTTP请求体解析
 const bodyParser = require('body-parser')
 // 管理cookie(设置、获取、删除),express-session依赖于它
-const cookieParser = require('cookie-parser')
+// const cookieParser = require('cookie-parser')
 // 处理 enctype = "multipart/form-data" 表单数据
-const multer = require('multer')
+// const multer = require('multer')
 // 引入history模块,协助vue路由
 const history = require('connect-history-api-fallback')
 
 // 环境变量
 const ENV_STATUS = process.env.NODE_ENV
-const ENV_PORT = require('./config/basic').server_port
 
 // webpack相关
 const webpack = require('webpack')
@@ -37,7 +37,7 @@ const webpackCfg = require('../../build/webpack.dev.conf')
 const compiler = webpack(webpackCfg)
 
 // 引入系统路由文件
-const routerCfg = require('./router/router')
+const routerCfg = require('./router/routers')
 
 // 实例应用
 const app = express()
@@ -71,8 +71,6 @@ if (ENV_STATUS === 'development') {
 app.use(express.static(path.join(__dirname, 'views')))
 
 // 启动服务
-app.listen(ENV_PORT, () => {
-    console.info(`服务已经启动，监听端口${ENV_PORT}`)
-})
+app.listen(3000, () => console.info(`服务已经启动，监听端口3000`))
 
 module.exports = app
