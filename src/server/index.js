@@ -1,11 +1,3 @@
-/*
- * @Author: Nundy
- * @Date: 2018-05-19 08:26:53
- * @Last Modified by: 我不是，我没有，别瞎说~ 这个Bug不是我写的
- * @Last Modified time: 2018-06-12 16:41:49
- */
-
-/****************************************/
 require('babel-register')
 // 引入express框架
 const express = require('express')
@@ -47,7 +39,7 @@ const app = express()
 app.use(logger('dev'))
 
 // 解析 POST/PUT/PATCH 中的请求体
-app.use(bodyParser.json())
+app.use(bodyParser.json({ uploadDir: './static' }))
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // API 路由设置
@@ -69,6 +61,7 @@ if (ENV_STATUS === 'development') {
 
 // 设置静态文件路径,prod模式
 app.use(express.static(path.join(__dirname, 'views')))
+app.use(express.static(path.join(__dirname, 'static')))
 
 // 启动服务
 app.listen(3000, () => console.info(`服务已经启动，监听端口3000`))

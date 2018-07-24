@@ -16,12 +16,10 @@ module.exports = {
         app: './src/client/index.js'
     },
     resolve: {
-    // 自动解析扩展
         extensions: ['.js', '.vue', '.json'],
-        // 解析别名
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            '@': utils.resolve('src')
+            '@': utils.resolve('src/client')
         }
     },
     module: {

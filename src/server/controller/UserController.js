@@ -1,7 +1,7 @@
 const UserModel = require('../model/UserModel')
 const UserCtrl = {
-    add: (req, res) => {
-        UserModel.add(req, res)
+    test: (req, res) => {
+        UserModel.test(req, res)
     }
 }
 
